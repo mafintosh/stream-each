@@ -1,0 +1,21 @@
+{
+  "name": "stream-each",
+  "version": "0.0.0",
+  "description": "Iterate all the data in a stream",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "tape": "^4.2.1",
+    "through2": "^2.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mafintosh/stream-each.git"
+  },
+  "author": "Mathias Buus (@mafintosh)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mafintosh/stream-each/issues"
+  },
+  "homepage": "https://github.com/mafintosh/stream-each"
+}
