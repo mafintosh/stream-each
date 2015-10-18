@@ -8,6 +8,9 @@
     "tape": "^4.2.1",
     "through2": "^2.0.0"
   },
+  "scripts": {
+    "test": "tape test.js"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/mafintosh/stream-each.git"
