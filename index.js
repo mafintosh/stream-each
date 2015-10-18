@@ -1,23 +1,19 @@
 module.exports = each
 
 function each (stream, fn) {
-  var want = false
+  var waiting = false
   stream.on('readable', onreadable)
-  loop(null)
+  read(null)
   return stream
 
   function onreadable () {
-    if (want) loop(null)
+    if (waiting) read(null)
   }
 
-  function loop (err) {
+  function read (err) {
     if (err) return stream.destroy(err)
     var data = stream.read()
-    if (!data) {
-      want = true
-    } else {
-      want = false
-      fn(data, loop)
-    }
+    waiting = !data
+    if (data) fn(data, read)
   }
 }
