@@ -35,3 +35,7 @@ When the stream ends/errors the callback is called if provided
 ## License
 
 MIT
+
+## Related
+
+`stream-each` is part of the [mississippi stream utility collection](https://github.com/maxogden/mississippi) which includes more useful stream modules similar to this one.
