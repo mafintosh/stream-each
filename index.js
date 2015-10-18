@@ -1,9 +1,12 @@
+var eos = require('end-of-stream')
+
 module.exports = each
 
-function each (stream, fn) {
+function each (stream, fn, cb) {
   var waiting = false
   stream.on('readable', onreadable)
   read(null)
+  if (cb) eos(stream, {readable: true, writable: false}, cb)
   return stream
 
   function onreadable () {

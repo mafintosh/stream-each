@@ -3,7 +3,9 @@
   "version": "1.0.2",
   "description": "Iterate all the data in a stream",
   "main": "index.js",
-  "dependencies": {},
+  "dependencies": {
+    "end-of-stream": "^1.1.0"
+  },
   "devDependencies": {
     "standard": "^5.3.1",
     "tape": "^4.2.1",
