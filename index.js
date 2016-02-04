@@ -3,34 +3,51 @@ var eos = require('end-of-stream')
 module.exports = each
 
 function each (stream, fn, cb) {
-  var waiting = false
+  var want = true
   var error = null
   var ended = false
+  var running = false
 
   stream.on('readable', onreadable)
-  read(null)
+  onreadable()
+
   if (cb) eos(stream, {readable: true, writable: false}, done)
   return stream
 
   function done (err) {
-    error = err
+    if (!error) error = err
     ended = true
-    if (waiting) return cb(error)
+    if (!running) cb(error)
   }
 
   function onreadable () {
-    if (waiting) read(null)
+    if (want) read()
   }
 
-  function read (err) {
+  function afterRead (err) {
+    running = false
+
     if (err) {
-      waiting = true
+      error = err
+      if (ended) return cb(error)
       stream.destroy(err)
       return
     }
+    if (ended) return cb(error)
+    read()
+  }
+
+  function read () {
+    if (ended || running) return
+    want = false
+
     var data = stream.read()
-    waiting = !data
-    if (waiting && ended) return cb(error)
-    if (data) fn(data, read)
+    if (!data) {
+      want = true
+      return
+    }
+
+    running = true
+    fn(data, afterRead)
   }
 }
