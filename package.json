@@ -4,7 +4,8 @@
   "description": "Iterate all the data in a stream",
   "main": "index.js",
   "dependencies": {
-    "end-of-stream": "^1.1.0"
+    "end-of-stream": "^1.1.0",
+    "stream-shift": "^1.0.0"
   },
   "devDependencies": {
     "standard": "^5.3.1",
