@@ -1,6 +1,6 @@
 {
   "name": "stream-each",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "description": "Iterate all the data in a stream",
   "main": "index.js",
   "dependencies": {
