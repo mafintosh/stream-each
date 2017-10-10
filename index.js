@@ -43,7 +43,7 @@ function each (stream, fn, cb) {
     want = false
 
     var data = shift(stream)
-    if (!data) {
+    if (data === null) {
       want = true
       return
     }
