@@ -8,6 +8,7 @@ function each (stream, fn, cb) {
   var error = null
   var ended = false
   var running = false
+  var calling = false
 
   stream.on('readable', onreadable)
   onreadable()
@@ -35,20 +36,23 @@ function each (stream, fn, cb) {
       return
     }
     if (ended) return cb(error)
-    read()
+    if (!calling) read()
   }
 
   function read () {
-    if (ended || running) return
-    want = false
+    while (!running && !ended) {
+      want = false
 
-    var data = shift(stream)
-    if (data === null) {
-      want = true
-      return
+      var data = shift(stream)
+      if (data === null) {
+        want = true
+        return
+      }
+
+      running = true
+      calling = true
+      fn(data, afterRead)
+      calling = false
     }
-
-    running = true
-    fn(data, afterRead)
   }
 }
