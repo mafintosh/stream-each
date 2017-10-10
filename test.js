@@ -80,3 +80,26 @@ tape('each error and callback', function (t) {
     t.end()
   })
 })
+
+tape('each with falsey values', function (t) {
+  var s = through.obj()
+  s.write(0)
+  s.write(false)
+  s.write(undefined)
+  s.end()
+
+  s.on('end', function () {
+    t.end()
+  })
+
+  var expected = [0, false, undefined]
+  var count = 0
+  each(s, function (data, next) {
+    count++
+    t.same(data, expected.shift())
+    next()
+  }, function () {
+    t.same(count, 3)
+  })
+})
+
