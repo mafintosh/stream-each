@@ -92,14 +92,14 @@ tape('each with falsey values', function (t) {
     t.end()
   })
 
-  var expected = [0, false, undefined]
+  var expected = [0, false]
   var count = 0
   each(s, function (data, next) {
     count++
     t.same(data, expected.shift())
     next()
   }, function () {
-    t.same(count, 3)
+    t.same(count, 2)
   })
 })
 
