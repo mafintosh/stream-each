@@ -103,3 +103,20 @@ tape('each with falsey values', function (t) {
   })
 })
 
+tape('huge stack', function (t) {
+  var s = through.obj()
+
+  for (var i = 0; i < 5000; i++) {
+    s.write('foo')
+  }
+
+  s.end()
+
+  each(s, function (data, cb) {
+    if (data !== 'foo') t.fail('bad data')
+    cb()
+  }, function (err) {
+    t.error(err, 'no error')
+    t.end()
+  })
+})
